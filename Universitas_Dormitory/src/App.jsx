@@ -5,6 +5,7 @@ import Features from './pages/Features.jsx'
 import Contact from './pages/Contact.jsx'
 import CampusMap from './pages/gempat.jsx'
 import PageLayout from './components/PageLayout.jsx'
+import ChatAiBox from './components/ChatAiBox.jsx'
 import './App.css'
 
 const pages = {
@@ -32,13 +33,21 @@ function App() {
   }, [title])
 
   if (!pageName || pageName === 'home' || !Page) {
-    return <Home />
+    return (
+      <>
+        <Home />
+        <ChatAiBox />
+      </>
+    )
   }
 
   return (
-    <PageLayout page={pageName}>
-      <Page />
-    </PageLayout>
+    <>
+      <PageLayout page={pageName}>
+        <Page />
+      </PageLayout>
+      <ChatAiBox />
+    </>
   )
 }
 
