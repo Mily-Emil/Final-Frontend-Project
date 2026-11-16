@@ -83,6 +83,13 @@ function buildLocalReply(userText) {
     return 'Informasi fasilitas lengkap dapat dilihat di halaman Fasilitas (?page=features) atau tanyakan asrama spesifik yang ingin Anda ketahui.'
   }
 
+  if (q.includes('unklab') || q.includes('universitas klabat') || q.includes('klabat')) {
+    return (
+      'Universitas Klabat (UNKLAB) adalah perguruan tinggi swasta yang berlokasi di Airmadidi, Minahasa Utara, Sulawesi Utara.\n' +
+      'UNKLAB memiliki lingkungan kampus yang asri dan menyediakan beberapa pilihan asrama mahasiswa (putra & putri) di area kampus.'
+    )
+  }
+
   if (q.includes('halo') || q.includes('hai') || q.includes('hi')) {
     return 'Halo! Silakan tanya tentang asrama putra, asrama putri, kapasitas kamar, atau lokasi asrama UNKLAB.'
   }
@@ -118,7 +125,7 @@ async function fetchGeminiReply(history, userText) {
   ]
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -276,7 +283,7 @@ function ChatAiBox() {
             <input
               type="text"
               className="chat-ai-input"
-              placeholder="Tanya tentang asrama..."
+              placeholder="Tanya tentang UNKLAB atau asrama..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
