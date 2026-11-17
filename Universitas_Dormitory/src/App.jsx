@@ -4,6 +4,8 @@ import About from './pages/About.jsx'
 import Features from './pages/Features.jsx'
 import Contact from './pages/Contact.jsx'
 import CampusMap from './pages/gempat.jsx'
+import Booking from './pages/Booking.jsx'
+import Admin from './pages/Admin.jsx'
 import PageLayout from './components/PageLayout.jsx'
 import ChatAiBox from './components/ChatAiBox.jsx'
 import './App.css'
@@ -13,6 +15,8 @@ const pages = {
   features: Features,
   contact: Contact,
   gempat: CampusMap,
+  booking: Booking,
+  admin: Admin,
 }
 
 const pageTitles = {
@@ -21,6 +25,8 @@ const pageTitles = {
   features: 'Fasilitas',
   contact: 'Kontak',
   gempat: 'Peta Kampus',
+  booking: 'Booking Asrama',
+  admin: 'Approval Kepala Asrama',
 }
 
 function App() {

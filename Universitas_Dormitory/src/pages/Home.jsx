@@ -145,6 +145,7 @@ function Home() {
           <a href="?page=features">Fasilitas</a>
           <a href="?page=gempat">Peta lokasi</a>
           <a href="?page=contact">Kontak</a>
+          <a href="?page=booking">Booking</a>
         </nav>
 
         <a className="nav-cta" href="#asrama">

@@ -16,10 +16,12 @@ function PageLayout({ page, children }) {
           <a href="?page=features" aria-current={page === 'features' ? 'page' : undefined}>Fasilitas</a>
           <a href="?page=gempat" aria-current={page === 'gempat' ? 'page' : undefined}>Peta lokasi</a>
           <a href="?page=contact" aria-current={page === 'contact' ? 'page' : undefined}>Kontak</a>
+          <a href="?page=booking" aria-current={page === 'booking' ? 'page' : undefined}>Booking</a>
+          <a href="?page=admin" aria-current={page === 'admin' ? 'page' : undefined}>Kepala Asrama</a>
         </nav>
 
-        <a className="nav-cta" href="?page=home#asrama">
-          Lihat asrama
+        <a className="nav-cta" href="?page=booking">
+          Booking kamar
           <svg aria-hidden="true" className="arrow-icon arrow-icon--diagonal" viewBox="0 0 20 20" fill="none">
             <path d="M3.5 10h12m-5-5 5 5-5 5" />
           </svg>
