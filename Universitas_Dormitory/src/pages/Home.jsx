@@ -6,7 +6,7 @@ const dormitories = [
     name: 'Crystal Dormitory',
     type: 'Putra',
     location: 'Area utama kampus',
-    rooms: '2–4 orang / kamar',
+    rooms: '4 orang / kamar',
     image:
       'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Kamar asrama dengan tempat tidur dan jendela besar',
@@ -14,16 +14,16 @@ const dormitories = [
   },
   {
     name: 'Guesthouse Dormitory',
-    type: 'Putri',
+    type: 'Putra',
     location: 'Dekat pusat kegiatan',
-    rooms: '2 orang / kamar',
+    rooms: '6 orang / kamar',
     image:
       'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Interior kamar asrama yang nyaman',
     tag: 'Terbatas',
   },
   {
-    name: 'Gen Z Dormitory',
+    name: 'Genset Dormitory',
     type: 'Putra',
     location: 'Area timur kampus',
     rooms: '2–3 orang / kamar',
@@ -33,10 +33,20 @@ const dormitories = [
     tag: 'Pilihan baru',
   },
   {
+    name: 'Annex Dormitory',
+    type: 'Putri',
+    location: 'Area barat kampus',
+    rooms: '2–4 orang / kamar',
+    image:
+      'https://images.unsplash.com/photo-1617104678098-de229db51175?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Ruang kamar asrama dengan dua tempat tidur',
+    tag: 'Tersedia',
+  },
+  {
     name: 'Jasmine 1 Dormitory',
     type: 'Putri',
     location: 'Area utama kampus',
-    rooms: '2 orang / kamar',
+    rooms: '4 orang / kamar',
     image:
       'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Kamar tidur asrama dengan pencahayaan alami',
@@ -46,7 +56,7 @@ const dormitories = [
     name: 'Jasmine 2 Dormitory',
     type: 'Putri',
     location: 'Area utama kampus',
-    rooms: '2–3 orang / kamar',
+    rooms: '4 orang / kamar',
     image:
       'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Kamar tidur rapi dengan tempat tidur dan meja',
@@ -56,30 +66,10 @@ const dormitories = [
     name: 'Edelweiss Dormitory',
     type: 'Putri',
     location: 'Dekat perpustakaan',
-    rooms: '2 orang / kamar',
+    rooms: '6 orang / kamar',
     image:
       'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Kamar tidur terang dengan furnitur kayu',
-    tag: 'Tersedia',
-  },
-  {
-    name: 'Annex Dormitory',
-    type: 'Putra',
-    location: 'Area barat kampus',
-    rooms: '2–4 orang / kamar',
-    image:
-      'https://images.unsplash.com/photo-1617104678098-de229db51175?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Ruang kamar asrama dengan dua tempat tidur',
-    tag: 'Tersedia',
-  },
-  {
-    name: 'Dormitory Unit 08',
-    type: 'Putri',
-    location: 'Area selatan kampus',
-    rooms: '2 orang / kamar',
-    image:
-      'https://images.unsplash.com/photo-1615874694520-474822394e73?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Kamar asrama yang nyaman dengan dekorasi sederhana',
     tag: 'Tersedia',
   },
 ]
@@ -194,7 +184,7 @@ function Home() {
               <span>Lebih dari sekadar tempat tinggal.</span>
             </div>
             <div className="floating-stats" aria-label="Informasi asrama">
-              <span className="stats-number">08</span>
+              <span className="stats-number">{String(dormitories.length).padStart(2, '0')}</span>
               <span className="stats-label">pilihan asrama<br />di dalam kampus</span>
               <span className="stats-rule" />
               <span className="stats-number">01</span>
@@ -246,7 +236,11 @@ function Home() {
                   aria-pressed={activeFilter === filter}
                 >
                   {filter}
-                  {filter === 'Semua' && <span className="filter-count">08</span>}
+                  {filter === 'Semua' && (
+                    <span className="filter-count">
+                      {String(dormitories.length).padStart(2, '0')}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -321,7 +315,10 @@ function Home() {
           )}
 
           <div className="directory-footer">
-            <span>MENAMPILKAN {String(visibleDormitories.length).padStart(2, '0')} DARI 08 ASRAMA</span>
+            <span>
+              MENAMPILKAN {String(visibleDormitories.length).padStart(2, '0')} DARI{' '}
+              {String(dormitories.length).padStart(2, '0')} ASRAMA
+            </span>
             <a href="#kontak">Butuh bantuan memilih? <ArrowIcon diagonal /></a>
           </div>
         </section>

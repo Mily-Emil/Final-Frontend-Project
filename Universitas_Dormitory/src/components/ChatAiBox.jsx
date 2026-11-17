@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import './ChatAiBox.css'
 
-const UNKLAB_CONTEXT = `
-Kamu adalah asisten AI resmi untuk Universitas Klabat (UNKLAB) di Airmadidi, Minahasa Utara, Sulawesi Utara.
-Jawablah dalam Bahasa Indonesia yang ramah, ringkas, terstruktur, dan jelas.
-Kamu mampu merangkum dan menjelaskan informasi umum tentang Universitas Klabat secara menyeluruh, termasuk profil kampus, sejarah, fakultas dan program studi, fasilitas umum kampus, kehidupan mahasiswa, pendaftaran, lokasi/kontak resmi, serta informasi asrama UNKLAB.
+const DORMITORY_CONTEXT = `
+Kamu adalah asisten AI resmi untuk Universitas Klabat (UNKLAB) dan Asrama Universitas Klabat di Airmadidi, Sulawesi Utara.
+Jawablah dalam Bahasa Indonesia yang ramah, ringkas, dan jelas.
 
 ATURAN KETAT TOPIK:
 - Kamu HANYA boleh menjawab pertanyaan yang bersangkutan dengan Universitas Klabat (UNKLAB), termasuk informasi umum kampus, akademik/fakultas, fasilitas kampus, kehidupan mahasiswa, pendaftaran, kontak resmi, dan asrama UNKLAB.
@@ -43,15 +42,17 @@ INFORMASI UMUM UNIVERSITAS KLABAT (UNKLAB):
 
 Daftar asrama UNKLAB yang tersedia di website:
 - Putra:
-  1. Crystal Dormitory (Area utama kampus, 2–4 orang/kamar, Favorit)
-  2. Gen Z Dormitory (Area timur kampus, 2–3 orang/kamar, Pilihan baru)
-  3. Annex Dormitory (Area barat kampus, 2–4 orang/kamar, Tersedia)
+  1. Crystal Dormitory (Area utama kampus, 4 orang/kamar, Favorit)
+  2. Guesthouse Dormitory (Dekat pusat kegiatan, 6 orang/kamar, Terbatas)
+  3. Genset Dormitory (Area timur kampus, 2–3 orang/kamar, Pilihan baru)
 - Putri:
   1. Guesthouse Dormitory (Dekat pusat kegiatan, 2 orang/kamar, Terbatas)
   2. Jasmine 1 Dormitory (Area utama kampus, 2 orang/kamar, Tersedia)
   3. Jasmine 2 Dormitory (Area utama kampus, 2–3 orang/kamar, Tersedia)
   4. Edelweiss Dormitory (Dekat perpustakaan, 2 orang/kamar, Tersedia)
   5. Dormitory Unit 08 (Area selatan kampus, 2 orang/kamar, Tersedia)
+
+Kontak resmi contoh: dormitory@unklab.ac.id, Universitas Klabat, Airmadidi, Sulawesi Utara.
 `
 
 const INITIAL_MESSAGES = [
@@ -134,29 +135,28 @@ function buildLocalReply(userText) {
     )
   }
 
-  if (q.includes('putra') || q.includes('cowok') || q.includes('laki')) {
+  if (q.includes('putra') || q.includes('cowok') || q.includes('laki') || q.includes('pria')) {
     return (
       'Untuk asrama putra, tersedia 3 pilihan:\n' +
-      '• Crystal Dormitory — Area utama kampus (2–4 orang/kamar, Favorit)\n' +
-      '• Gen Z Dormitory — Area timur kampus (2–3 orang/kamar, Pilihan baru)\n' +
-      '• Annex Dormitory — Area barat kampus (2–4 orang/kamar, Tersedia)'
+      '**Crystal Dormitory** — Area utama kampus (4 orang/kamar, Favorit)\n' +
+      '**Guesthouse Dormitory** — Dekat pusat kegiatan (6 orang/kamar, Terbatas)\n' +
+      '**Genset Dormitory** — Area timur kampus (2–3 orang/kamar, Pilihan baru)'
     )
   }
 
-  if (q.includes('putri') || q.includes('cewek') || q.includes('perempuan')) {
+  if (q.includes('putri') || q.includes('cewek') || q.includes('perempuan') || q.includes('wanita')) {
     return (
-      'Untuk asrama putri, tersedia 5 pilihan:\n' +
-      '• Guesthouse Dormitory — Dekat pusat kegiatan (2 orang/kamar, Terbatas)\n' +
-      '• Jasmine 1 Dormitory — Area utama kampus (2 orang/kamar)\n' +
-      '• Jasmine 2 Dormitory — Area utama kampus (2–3 orang/kamar)\n' +
-      '• Edelweiss Dormitory — Dekat perpustakaan (2 orang/kamar)\n' +
-      '• Dormitory Unit 08 — Area selatan kampus (2 orang/kamar)'
+      'Untuk asrama putri, tersedia 4 pilihan:\n' +
+      '**Annex Dormitory** — Area barat kampus (2–4 orang/kamar, Tersedia)\n' +
+      '**Jasmine 1 Dormitory** — Area utama kampus (4 orang/kamar)\n' +
+      '**Jasmine 2 Dormitory** — Area utama kampus (4 orang/kamar)\n' +
+      '**Edelweiss Dormitory** — Dekat perpustakaan (6 orang/kamar)'
     )
   }
 
   if (q.includes('kapasitas') || q.includes('kamar') || q.includes('orang')) {
     return (
-      'Kapasitas kamar asrama UNKLAB bervariasi antara 2 hingga 4 orang per kamar:\n' +
+      'Kapasitas kamar bervariasi antara 2 hingga 4 orang per kamar:\n' +
       '• 2 orang/kamar: Guesthouse, Jasmine 1, Edelweiss, Dormitory Unit 08\n' +
       '• 2–3 orang/kamar: Gen Z, Jasmine 2\n' +
       '• 2–4 orang/kamar: Crystal, Annex'
@@ -216,45 +216,16 @@ function buildLocalReply(userText) {
     q.includes('advent')
   ) {
     return (
-      'Kehidupan kampus di UNKLAB berlandaskan nilai-nilai Kristiani Gereja Masehi Advent Hari Ketujuh (GMAHK) dengan konsep Bilingual & Green Campus:\n' +
-      '• Pembinaan karakter, kedisiplinan, dan kegiatan ibadah rutin (seperti Chapel & Vesper)\n' +
-      '• Pengawasan lingkungan kampus dan asrama oleh pembina (Village Dean)\n' +
-      '• Berbagai kegiatan kemahasiswaan, akademik, dan olahraga di dalam area kampus.'
+      'Asrama berlokasi di lingkungan Universitas Klabat, Airmadidi, Sulawesi Utara.\n' +
+      'Anda juga dapat membuka halaman Peta lokasi (?page=gempat) atau Kontak (?page=contact) untuk detail lebih lanjut.'
     )
   }
 
-  if (
-    q.includes('lokasi') ||
-    q.includes('alamat') ||
-    q.includes('kontak') ||
-    q.includes('email') ||
-    q.includes('hubungi') ||
-    q.includes('telepon') ||
-    q.includes('dimana') ||
-    q.includes('di mana') ||
-    q.includes('airmadidi')
-  ) {
-    return (
-      'Lokasi & Kontak Resmi Universitas Klabat (UNKLAB):\n' +
-      '• Alamat: Jl. Arnold Mononutu, Airmadidi, Kab. Minahasa Utara, Sulawesi Utara 95371\n' +
-      '• Telepon: +62 431 891035 | Email: info@unklab.ac.id\n' +
-      '• Kontak Asrama: dormitory@unklab.ac.id\n' +
-      '• Website: https://www.unklab.ac.id\n\n' +
-      'Anda juga dapat membuka halaman Peta Lokasi (?page=gempat) atau Kontak (?page=contact).'
-    )
+  if (q.includes('fasilitas')) {
+    return 'Informasi fasilitas lengkap dapat dilihat di halaman Fasilitas (?page=features) atau tanyakan asrama spesifik yang ingin Anda ketahui.'
   }
 
-  if (
-    q.includes('rangkum') ||
-    q.includes('ringkas') ||
-    q.includes('profil') ||
-    q.includes('sejarah') ||
-    q.includes('berdiri') ||
-    q.includes('tentang') ||
-    q.includes('unklab') ||
-    q.includes('universitas klabat') ||
-    q.includes('klabat')
-  ) {
+  if (q.includes('unklab') || q.includes('universitas klabat') || q.includes('klabat')) {
     return (
       'Rangkuman Universitas Klabat (UNKLAB):\n' +
       '• Sejarah: Didirikan 7 Oktober 1965 sebagai Perguruan Tinggi Klabat (PTK) oleh GMAHK, dan resmi menjadi Universitas Klabat pada 10 Mei 1982.\n' +
@@ -278,12 +249,46 @@ function buildLocalReply(userText) {
   return (
     'Maaf, saya hanya dapat menjawab pertanyaan yang berkaitan dengan Universitas Klabat (UNKLAB).\n\n' +
     'Silakan tanyakan seputar:\n' +
-    '• Rangkuman profil & sejarah UNKLAB\n' +
-    '• Fakultas & program studi yang tersedia\n' +
-    '• Fasilitas kampus, kehidupan mahasiswa, & pendaftaran\n' +
-    '• Daftar asrama Putra & Putri beserta kapasitasnya\n' +
-    '• Lokasi & kontak resmi UNKLAB'
+    '• Daftar asrama Putra & Putri UNKLAB\n' +
+    '• Kapasitas kamar & area kampus\n' +
+    '• Lokasi & informasi kontak Universitas Klabat'
   )
+}
+
+function renderAssistantText(text) {
+  const lines = text.replace(/\s*\(?\?page=[\w-]+(?:&[^)\s]*)?\)?/gi, '').split('\n')
+
+  return lines.map((line, lineIndex) => {
+    const itemMatch = line.match(/^\s*(?:[•*-]|\d+[.)])\s+(.+)$/)
+    const content = itemMatch ? itemMatch[1] : line
+    const parts = content.split(/(\*\*[^*]+\*\*)/g).filter(Boolean)
+    const hasBold = parts.some((part) => /^\*\*[^*]+\*\*$/.test(part))
+
+    let formattedParts = parts.map((part, partIndex) => {
+      const boldMatch = part.match(/^\*\*([^*]+)\*\*$/)
+      return boldMatch
+        ? <strong key={partIndex}>{boldMatch[1]}</strong>
+        : part
+    })
+
+    if (itemMatch && !hasBold) {
+      const labelMatch = content.match(/^(.+?)(\s+[—–-]\s+|\s*:\s+)(.*)$/)
+      formattedParts = labelMatch
+        ? [
+            <strong key="label">{labelMatch[1]}</strong>,
+            labelMatch[2],
+            labelMatch[3],
+          ]
+        : [<strong key="label">{content}</strong>]
+    }
+
+    return (
+      <Fragment key={lineIndex}>
+        {formattedParts}
+        {lineIndex < lines.length - 1 ? '\n' : null}
+      </Fragment>
+    )
+  })
 }
 
 async function fetchGeminiReply(history, userText) {
@@ -442,7 +447,7 @@ function ChatAiBox() {
                 key={msg.id}
                 className={`chat-ai-msg chat-ai-msg--${msg.role}`}
               >
-                {msg.text}
+                {msg.role === 'assistant' ? renderAssistantText(msg.text) : msg.text}
               </div>
             ))}
 
