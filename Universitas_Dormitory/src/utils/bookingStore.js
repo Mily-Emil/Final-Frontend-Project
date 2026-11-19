@@ -8,7 +8,7 @@ const EMPTY = []
 let cachedRaw = null
 let cachedList = EMPTY
 
-function readBookings() {
+export function readBookings() {
   const raw = window.localStorage.getItem(STORAGE_KEY)
   if (raw !== cachedRaw) {
     cachedRaw = raw
